@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>A Basic HTML5 Template</title>
+        <link rel="icon" href="favicon.ico">
+        <style>
+            body {
+                font-size: 30px;
+            }
+        </style>
+        <script>
+            console.log("I'm in head")
+        </script>
+    </head>
+
+    <body>
+        <label>Hello there!</label>
+
+        <script>
+            let i = 0;
+            const longI = 1000000000;
+
+            while (i < longI) {
+                i++
+                const a = i % 10000000;
+                if (a === 0) {
+                    console.log(i / 10000000.0)
+                }
+            }
+
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * max);
+            }
+
+            const random = getRandomInt(10);
+
+            if (random < 5) {
+                console.log("random is less than 5, random: " + random)
+            } else {
+                console.log(`random is greater than than 5, random: ${random}`)
+            }
+
+            console.log("I'm in body")
+        </script>
+    </body>
+</html>
