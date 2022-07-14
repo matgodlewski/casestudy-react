@@ -54,7 +54,9 @@ const exampleArrowFunctionWithCallback = (a, callback) => {
     return a + 1;
 }
 
-console.log(exampleArrowFunctionWithCallback(1, (a) => console.log(`callback with param: ${a}`)));
+const someCallbackFunction = (a) => console.log(`callback with param: ${a}`);
+
+console.log(exampleArrowFunctionWithCallback(1, someCallbackFunction));
 
 // ternary operator
 const notTernaryOperator = (value) => {
