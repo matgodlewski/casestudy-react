@@ -1,0 +1,31 @@
+{
+  "name": "contacts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start-case-study": "webpack server --mode development --config config/webpack-case-study.config.js"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.14.6",
+    "@babel/polyfill": "~7.12.1",
+    "@babel/preset-env": "~7.14.7",
+    "@babel/preset-react": "~7.14.5",
+    "@babel/plugin-proposal-decorators": "~7.14.5",
+    "babel-polyfill": "~6.26.0",
+    "babel-loader": "~8.2.2",
+    "css-loader": "~5.2.6",
+    "style-loader": "~3.0.0",
+    "html-webpack-plugin": "~5.3.2",
+    "webpack": "~5.40.0",
+    "webpack-cli": "~4.7.2",
+    "webpack-dev-server": "~3.11.2"
+  },
+  "dependencies": {
+    "axios": "~0.19.0",
+    "react": "~17.0.2",
+    "react-dom": "~17.0.2",
+    "react-redux": "~7.2.4",
+    "redux": "~4.1.0",
+    "redux-thunk": "~2.3.0"
+  }
+}

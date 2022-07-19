@@ -1,0 +1,6 @@
+# Browsers that we support
+# https://github.com/browserslist/browserslist
+# run npx browserslist to show supported browser
+
+defaults
+IE 11
