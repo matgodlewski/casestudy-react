@@ -6,7 +6,8 @@
 /node_modules
 !/repository/**
 /.idea
-
+/presentation/react/react-exercises/node_modules
+/presentation/tools/node_modules
 ######################
 # Directories
 ######################
