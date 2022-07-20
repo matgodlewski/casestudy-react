@@ -32,6 +32,22 @@ export function fetchAllApisAction() {
 // implement fetch all based on async await
 export function asyncFetchAllApisAction() {
   return async (dispatch) => {
-    // start here
+    dispatch({ type: APIS_ACTION_TYPES.FETCH_REQUEST });
+    try {
+      const response = await fetchPublicApis();
+      dispatch({
+        type: APIS_ACTION_TYPES.FETCH_SUCCESS,
+        payload: {
+          response,
+        },
+      });
+    } catch (err) {
+      dispatch({
+        type: APIS_ACTION_TYPES.FETCH_FAIL,
+        payload: {
+          errors: [`something went wrong: ${err}`],
+        },
+      });
+    }
   };
 }

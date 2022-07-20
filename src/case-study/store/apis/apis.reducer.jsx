@@ -6,6 +6,7 @@ const initialState = {
   errors: [],
 };
 
+// eslint-disable-next-line default-param-last
 export default function apis(state= initialState, action) {
   switch (action.type) {
     case APIS_ACTION_TYPES.FETCH_REQUEST:
