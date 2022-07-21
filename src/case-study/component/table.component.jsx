@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 //   table, th, tbody, tr, th, td,
 // } from 'react-bootstrap';
 
-function tableComponent({ entries }) {
+function tableComponent({ entries, visible }) {
   return (
     <table>
       <thead>
         <tr>
-          <th>Index</th>
-          <th>Name</th>
-          <th>Link</th>
-          <th>CORS</th>
-          <th>Description</th>
-          <th>Category</th>
+          {visible.index && <th>Index</th>}
+          {visible.name && <th>Name</th>}
+          {visible.link && <th>Link</th>}
+          {visible.cors && <th>CORS</th>}
+          {visible.description && <th>Description</th>}
+          {visible.category && <th>Category</th>}
         </tr>
       </thead>
       <tbody>
