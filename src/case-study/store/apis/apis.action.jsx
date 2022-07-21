@@ -4,6 +4,9 @@ export const APIS_ACTION_TYPES = {
   FETCH_REQUEST: '[APIS] FETCH_REQUEST',
   FETCH_SUCCESS: '[APIS] FETCH_SUCCESS',
   FETCH_FAIL: '[APIS] FETCH_FAIL',
+  UPDATE_DESCRIPTION: '[APIS] UPDATE_DESCRIPTION',
+  DELETE_ROW: '[APIS] DELETE_ROW',
+  SET_LOCAL_APIS: '[APIS] SET_LOCAL_APIS',
 };
 
 export function fetchAllApisAction() {
@@ -49,5 +52,24 @@ export function asyncFetchAllApisAction() {
         },
       });
     }
+  };
+}
+
+export function updateDescriptionAction(index, description) {
+  return {
+    type: APIS_ACTION_TYPES.UPDATE_DESCRIPTION,
+    payload: {
+      index,
+      description,
+    },
+  };
+}
+
+export function deleteRowAction(index) {
+  return {
+    type: APIS_ACTION_TYPES.DELETE_ROW,
+    payload: {
+      index,
+    },
   };
 }

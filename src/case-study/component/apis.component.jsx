@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 import useLocalStorage from '../hooks/useLocalStorage';
 import TableComponent from './table.component';
 import FilterTableComponent from './filterTable.component';
@@ -16,7 +17,8 @@ function ApisComponent({ onClick, apis }) {
 
   return (
     <div>
-      <button onClick={onClick} type='button'>Get all apis</button>
+      <Button onClick={onClick} type='button'>Get all apis</Button>
+      <br />
       {apis.lastResponse && FilterTableComponent(visible, setVisible)}
       {apis.lastResponse && TableComponent({ entries: apis.lastResponse.entries, visible })}
     </div>

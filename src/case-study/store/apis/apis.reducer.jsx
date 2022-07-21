@@ -22,6 +22,7 @@ export default function apis(state= initialState, action) {
       return {
         ...state,
         lastResponse: response,
+        allApisDevsCategory: response.entries,
         fetchingInProgress: false,
       };
     }
@@ -32,7 +33,49 @@ export default function apis(state= initialState, action) {
         ...state,
         errors,
         lastResponse: undefined,
+        allApisDevsCategory: [],
         fetchingInProgress: false,
+      };
+    }
+
+    case APIS_ACTION_TYPES.UPDATE_DESCRIPTION: {
+      const { index, description } = action.payload;
+      const { lastResponse } = state;
+      const newEntries = lastResponse.entries.map((entry, i) => {
+        if (i === index) {
+          return {
+            ...entry,
+            description,
+          };
+        }
+        return entry;
+      });
+      return {
+        ...state,
+        lastResponse: {
+          ...lastResponse,
+          entries: newEntries,
+        },
+      };
+    }
+
+    case APIS_ACTION_TYPES.SET_LOCAL_APIS: {
+      return {
+        ...state,
+        allApisDevsCategory: action.payload,
+      };
+    }
+
+    case APIS_ACTION_TYPES.DELETE_ROW: {
+      const { index } = action.payload;
+      const { lastResponse } = state;
+      const newEntries = lastResponse.entries.filter((entry, i) => i !== index);
+      return {
+        ...state,
+        lastResponse: {
+          ...lastResponse,
+          entries: newEntries,
+        },
       };
     }
 

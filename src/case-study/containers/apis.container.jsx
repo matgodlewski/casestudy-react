@@ -1,37 +1,47 @@
 import React from 'react';
-import { asyncFetchAllApisAction } from "../store/apis/apis.action";
-import { connect } from "react-redux";
-import ApisComponent from "../component/apis.component";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {
+  asyncFetchAllApisAction,
+  updateDescriptionAction,
+  deleteRowAction,
+} from '../store/apis/apis.action';
+import ApisComponent from '../component/apis.component';
 
-//Main difference between React.PureComponent and React.Component is fact
-//that PureComponent has default implementation for shouldComponentUpdate method which uses shallow comparision between new props,state and old props, state values.
-@connect(store => ({
-  apis: store.apis,
-}))
-export default class ApisContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
+function ApisContainer({
+  apis,
+  dispatch,
+}) {
+  const handleOnClick = () => {
+    dispatch(asyncFetchAllApisAction());
+  };
 
-  handleOnClick() {
-    this.props.dispatch(asyncFetchAllApisAction());
-  }
+  const handleDescriptionChange = (id, description) => {
+    dispatch(updateDescriptionAction(id, description));
+  };
 
-  render() {
-    return (
-      <div>
-        <ApisComponent
-            onClick={ () => this.handleOnClick() }
-            apis={ this.props.apis }
-        />
-      </div>
-    );
-  }
+  const handleDeleteRow = (id) => {
+    dispatch(deleteRowAction(id));
+  };
+  return (
+    <div>
+      <ApisComponent
+        onClick={handleOnClick}
+        apis={apis}
+        handleDescriptionChange={handleDescriptionChange}
+        handleDeleteRow={handleDeleteRow}
+      />
+    </div>
+  );
 }
 
+ApisContainer.propTypes = {
+  apis: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
-// const mapStateToProps = store => ({
-//   apis: store.apis,
-// });
-//
-// export default connect(mapStateToProps)(InternshipProjectContainer);
+const mapStateToProps = (store) => ({
+  apis: store.apis,
+});
+
+export default connect(mapStateToProps)(ApisContainer);
