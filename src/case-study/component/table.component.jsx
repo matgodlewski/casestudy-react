@@ -8,6 +8,7 @@ import {
   TableRow,
   Button,
   TextareaAutosize,
+  Link,
 } from '@material-ui/core';
 
 function tableComponent({
@@ -35,8 +36,20 @@ function tableComponent({
           <TableRow key={index}>
             {visible.index && <TableCell>{index + 1}</TableCell>}
             {visible.name && <TableCell>{api.API}</TableCell>}
-            {visible.link && <TableCell>{api.Link}</TableCell>}
-            {visible.cors && <TableCell>{api.Cors}</TableCell>}
+            {visible.link && (
+            <TableCell>
+              <Link href={api.Link} target='_blank'>
+                {api.Link}
+              </Link>
+            </TableCell>
+            )}
+            {visible.cors && (
+            <TableCell>
+              {
+                api.Cors === 'unknown' ? '❌': '✅'
+              }
+            </TableCell>
+            )}
 
             {visible.description && (
               <TableCell>
@@ -48,14 +61,19 @@ function tableComponent({
             )}
             {visible.category && <td>{api.Category}</td>}
             <TableCell>
-              <Button onClick={() => handleDeleteRow(index)} type='button'>
+              <Button
+                onClick={() => handleDeleteRow(index)}
+                type='button'
+                variant='contained'
+              >
                 Delete
               </Button>
-              <Button // onClick={() => handleDescriptionChange(index, api.Description)}
-                type='button'
-              >
-                Save
-              </Button>
+              {/* <Button // onClick={() => handleDescriptionChange(index, api.Description)} */}
+              {/*   type='button' */}
+              {/*   variant='contained' */}
+              {/* > */}
+              {/*   Save */}
+              {/* </Button> */}
             </TableCell>
           </TableRow>
         ))}

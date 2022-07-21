@@ -5,7 +5,10 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import TableComponent from './table.component';
 import FilterTableComponent from './filterTable.component';
 
-function ApisComponent({ onClick, apis }) {
+function ApisComponent({
+  onClick,
+  apis,
+}) {
   const [visible, setVisible] = useLocalStorage('columns', {
     index: true,
     name: true,
@@ -17,9 +20,14 @@ function ApisComponent({ onClick, apis }) {
 
   return (
     <div>
-      <Button onClick={onClick} type='button'>Get all apis</Button>
-      <br />
       {apis.lastResponse && FilterTableComponent(visible, setVisible)}
+      <Button
+        onClick={onClick}
+        type='button'
+        variant='contained'
+      >
+        Get all apis
+      </Button>
       {apis.lastResponse && TableComponent({ entries: apis.lastResponse.entries, visible })}
     </div>
   );
