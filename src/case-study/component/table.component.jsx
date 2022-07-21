@@ -20,13 +20,13 @@ function tableComponent({ entries, visible }) {
       <tbody>
         {entries.map((api, index) => (
         // eslint-disable-next-line react/no-array-index-key
-          <tr key={index + 1}>
-            <td>{index}</td>
-            <td>{api.API}</td>
-            <td>{api.Link}</td>
-            <td>{api.Cors}</td>
-            <td>{api.Description}</td>
-            <td>{api.Category}</td>
+          <tr key={index}>
+            {visible.index && <td>{index + 1}</td>}
+            {visible.name && <td>{api.API}</td>}
+            {visible.link && <td>{api.Link}</td>}
+            {visible.cors && <td>{api.Cors}</td>}
+            {visible.description && <td>{api.Description}</td>}
+            {visible.category && <td>{api.Category}</td>}
           </tr>
         ))}
       </tbody>
