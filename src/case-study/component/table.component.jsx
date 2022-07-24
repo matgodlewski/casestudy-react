@@ -1,92 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Button,
-  TextareaAutosize,
-  Link,
-} from '@material-ui/core';
+import { updateApiDetailsEntries } from '../store/apis/apisDetails.action';
+import TableRecordComponent from './tableRecord.component';
+import TableHeaderComponent from './tableHeader.component';
 
-function tableComponent({
-  entries,
-  visible,
-  // handleDescriptionChange,
-  handleDeleteRow,
+export default function TableComponent({
+  data,
+  hiddenColumnsIds,
+  dispatch,
 }) {
-  return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          {visible.index && <TableCell>Index</TableCell>}
-          {visible.name && <TableCell>Name</TableCell>}
-          {visible.link && <TableCell>Link</TableCell>}
-          {visible.cors && <TableCell>CORS</TableCell>}
-          {visible.description && <TableCell>Description</TableCell>}
-          {visible.category && <TableCell>Category</TableCell>}
-          <TableCell>Actions</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {entries.map((api, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <TableRow key={index}>
-            {visible.index && <TableCell>{index + 1}</TableCell>}
-            {visible.name && <TableCell>{api.API}</TableCell>}
-            {visible.link && (
-            <TableCell>
-              <Link href={api.Link} target='_blank'>
-                {api.Link}
-              </Link>
-            </TableCell>
-            )}
-            {visible.cors && (
-            <TableCell>
-              {
-                api.Cors === 'unknown' ? '❌': '✅'
-              }
-            </TableCell>
-            )}
+  const onEntryEdit = (entry) => {
+    const filteredData = data.filter((item) => item.API !== entry.API);
+    filteredData.push(entry);
+    dispatch(updateApiDetailsEntries(filteredData));
+  };
 
-            {visible.description && (
-              <TableCell>
-                <TextareaAutosize
-                  value={api.Description}
-                  readOnly
-                />
-              </TableCell>
-            )}
-            {visible.category && <td>{api.Category}</td>}
-            <TableCell>
-              <Button
-                onClick={() => handleDeleteRow(index)}
-                type='button'
-                variant='contained'
-              >
-                Delete
-              </Button>
-              {/* <Button // onClick={() => handleDescriptionChange(index, api.Description)} */}
-              {/*   type='button' */}
-              {/*   variant='contained' */}
-              {/* > */}
-              {/*   Save */}
-              {/* </Button> */}
-            </TableCell>
-          </TableRow>
+  const onEntryDelete = (API) => {
+    const filteredData = data.filter((item) => item.API !== API);
+    dispatch(updateApiDetailsEntries(filteredData));
+  };
+
+  return (
+    <table>
+      <TableHeaderComponent
+        hiddenColumnsIds={hiddenColumnsIds}
+      />
+      <tbody>
+        {data.map((entry, index) => (
+          <TableRecordComponent
+            /* eslint-disable-next-line react/no-array-index-key */
+            key={index}
+            entry={entry}
+            hiddenColumnsIds={hiddenColumnsIds}
+            editApiEntry={onEntryEdit}
+            removeApiEntry={onEntryDelete}
+            index={index}
+          />
         ))}
-      </TableBody>
-    </Table>
+      </tbody>
+    </table>
+
   );
 }
 
-tableComponent.propTypes = {
-  entries: PropTypes.array.isRequired,
-  visible: PropTypes.object.isRequired,
-  handleDescriptionChange: PropTypes.func.isRequired,
-  handleDeleteRow: PropTypes.func.isRequired,
+TableComponent.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    API: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    Auth: PropTypes.string.isRequired,
+    HTTPS: PropTypes.bool.isRequired,
+    Cors: PropTypes.string.isRequired,
+    Link: PropTypes.string.isRequired,
+    Category: PropTypes.string.isRequired,
+  })).isRequired,
+  hiddenColumnsIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
-
-export default tableComponent;

@@ -1,26 +1,25 @@
+// noinspection JSValidateTypes
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import useLocalStorage from '../hooks/useLocalStorage';
 import TableComponent from './table.component';
-import FilterTableComponent from './filterTable.component';
+import FilterColumnsComponent from './filterTable.component';
 
 function ApisComponent({
   onClick,
-  apis,
+  apisDetails,
+  dispatch = [],
 }) {
-  const [visible, setVisible] = useLocalStorage('columns', {
-    index: true,
-    name: true,
-    link: true,
-    cors: true,
-    description: true,
-    category: true,
-  });
-
+  const { allApisInDevsCategory } = apisDetails;
+  // save the hidden columns in local storage
+  const [hiddenColumnsIds, setHiddenColumnsIds] = useLocalStorage(
+    'hiddenColumnsIds',
+    [],
+  );
   return (
     <div>
-      {apis.lastResponse && FilterTableComponent(visible, setVisible)}
       <Button
         onClick={onClick}
         type='button'
@@ -28,14 +27,35 @@ function ApisComponent({
       >
         Get all apis
       </Button>
-      {apis.lastResponse && TableComponent({ entries: apis.lastResponse.entries, visible })}
+      <FilterColumnsComponent
+        onColumnsChange={setHiddenColumnsIds}
+        hiddenColumnsIds={hiddenColumnsIds}
+      />
+      {allApisInDevsCategory.length > 0 && (
+        <TableComponent
+          data={apisDetails.allApisInDevsCategory}
+          hiddenColumnsIds={hiddenColumnsIds}
+          dispatch={dispatch}
+        />
+      )}
     </div>
   );
 }
 
 ApisComponent.propTypes = {
   onClick: PropTypes.func.isRequired,
-  apis: PropTypes.object.isRequired,
+  apisDetails: PropTypes.shape({
+    allApisInDevsCategory: PropTypes.arrayOf(PropTypes.shape({
+      API: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Auth: PropTypes.string.isRequired,
+      HTTPS: PropTypes.bool.isRequired,
+      Cors: PropTypes.string.isRequired,
+      Link: PropTypes.string.isRequired,
+      Category: PropTypes.string.isRequired,
+    })),
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default ApisComponent;

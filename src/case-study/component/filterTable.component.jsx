@@ -1,85 +1,35 @@
 import React from 'react';
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormControl,
-  FormLabel,
-  FormHelperText,
+import PropTypes from 'prop-types';
+import { entryFields } from './tableHeader.component';
 
-} from '@material-ui/core';
+export default function FilterColumnsComponent({
+  hiddenColumnsIds,
+  onColumnsChange,
+}) {
+  const onCheckboxClick = (field) => (
+    (hiddenColumnsIds.some((id) => id === field.id)
+      ? onColumnsChange(hiddenColumnsIds.filter((id) => id !== field.id))
+      : onColumnsChange([...hiddenColumnsIds, field.id]))
+  );
 
-function FilterTableComponent(visible, setVisible) {
   return (
-    <FormControl component='fieldset'>
-      <FormLabel component='legend'>Visible columns</FormLabel>
-      <FormGroup>
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={visible.index}
-              onChange={() => setVisible({ ...visible, index: !visible.index })}
-              name='index'
-            />
-                  )}
-          label='Index'
-        />
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={visible.name}
-              onChange={() => setVisible({ ...visible, name: !visible.name })}
-              name='name'
-            />
-                  )}
-          label='Name'
-        />
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={visible.link}
-              onChange={() => setVisible({ ...visible, link: !visible.link })}
-              name='link'
-            />
-                  )}
-          label='Link'
-        />
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={visible.cors}
-              onChange={() => setVisible({ ...visible, cors: !visible.cors })}
-              name='cors'
-            />
-                  )}
-          label='CORS'
-        />
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={visible.description}
-              onChange={() => setVisible({ ...visible, description: !visible.description })}
-              name='description'
-            />
-                  )}
-          label='Description'
-        />
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={visible.category}
-              onChange={() => setVisible({ ...visible, category: !visible.category })}
-              name='category'
-            />
-                  )}
-          label='Category'
-        />
-      </FormGroup>
-      <FormHelperText>
-        You can change the columns visibility by clicking on the checkboxes.
-      </FormHelperText>
-    </FormControl>
+    <div>
+      {entryFields.map((field, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div key={index}>
+          <input
+            type='checkbox'
+            checked={hiddenColumnsIds.some((id) => id === field.id)}
+            onChange={() => onCheckboxClick(field)}
+          />
+          {field.label}
+        </div>
+      ))}
+    </div>
   );
 }
 
-export default FilterTableComponent;
+FilterColumnsComponent.propTypes = {
+  hiddenColumnsIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onColumnsChange: PropTypes.func.isRequired,
+};
