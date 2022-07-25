@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 
 function TableRecordComponent({
   index,
@@ -30,7 +31,7 @@ function TableRecordComponent({
         key='NO'
         hidden={hiddenColumnsIds.some((id) => id === 0)}
       >
-        {index}
+        {index + 1}
       </td>
       <td
         key='API_NAME'
@@ -42,7 +43,13 @@ function TableRecordComponent({
         key='LINK'
         hidden={hiddenColumnsIds.some((id) => id === 2)}
       >
-        {entry.Link}
+        <a
+          href={entry.Link}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          {entry.Link}
+        </a>
       </td>
       <td
         key='CORS'
@@ -73,18 +80,23 @@ function TableRecordComponent({
         key='ACTION'
         hidden={hiddenColumnsIds.some((id) => id === 6)}
       >
-        <button
+        <Button
           type='button'
           onClick={() => onEditClick(entry)}
+          variant='contained'
+          color='primary'
         >
           {editMode ? 'Save' : 'Edit'}
-        </button>
-        <button
+        </Button>
+        <Button
           type='button'
           onClick={() => removeApiEntry(entry.API)}
+          confirm='Are you sure you want to delete this entry?'
+          variant='contained'
+          color='secondary'
         >
           Remove
-        </button>
+        </Button>
       </td>
     </tr>
   );

@@ -23,6 +23,8 @@ function ApisComponent({
         onClick={onClick}
         type='button'
         variant='contained'
+        color='primary'
+        style={{ margin: '10px' }}
       >
         Get all apis
       </Button>

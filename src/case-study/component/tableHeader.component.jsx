@@ -1,5 +1,13 @@
+// noinspection JSValidateTypes
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  TableHead,
+  TableRow,
+  TableCell,
+
+} from '@material-ui/core';
 
 // eslint-disable-next-line import/prefer-default-export
 export const entryFields = [
@@ -33,27 +41,25 @@ export const entryFields = [
   },
 ];
 
-function TableHeaderComponent({
+export default function TableHeaderComponent({
   hiddenColumnsIds,
 }) {
   return (
-    <thead>
-      <tr>
-        {entryFields.map((entry) => (
+    <TableHead>
+      <TableRow>
+        {entryFields.map((field) => (
           <th
-            key={entry.id}
-            hidden={hiddenColumnsIds.some((id) => id === entry.id)}
+            key={field.id}
+            hidden={hiddenColumnsIds.includes(field.id)}
           >
-            {entry.label}
+            {field.label}
           </th>
         ))}
-      </tr>
-    </thead>
+      </TableRow>
+    </TableHead>
   );
 }
 
 TableHeaderComponent.propTypes = {
   hiddenColumnsIds: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
-
-export default TableHeaderComponent;

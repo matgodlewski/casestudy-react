@@ -20,6 +20,7 @@ export default function TableComponent({
   };
 
   return (
+
     <table>
       <TableHeaderComponent
         hiddenColumnsIds={hiddenColumnsIds}
@@ -27,12 +28,12 @@ export default function TableComponent({
       <tbody>
         {data.map((entry, index) => (
           <TableRecordComponent
-            /* eslint-disable-next-line react/no-array-index-key */
+              /* eslint-disable-next-line react/no-array-index-key */
             key={index}
             entry={entry}
-            hiddenColumnsIds={hiddenColumnsIds}
             editApiEntry={onEntryEdit}
             removeApiEntry={onEntryDelete}
+            hiddenColumnsIds={hiddenColumnsIds}
             index={index}
           />
         ))}

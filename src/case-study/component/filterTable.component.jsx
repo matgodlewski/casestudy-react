@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Checkbox,
+  FormControlLabel,
+} from '@material-ui/core';
 import { entryFields } from './tableHeader.component';
 
 export default function FilterColumnsComponent({
@@ -16,18 +20,20 @@ export default function FilterColumnsComponent({
 
   return (
     <div>
-      {entryFields.map((field, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div key={index}>
-          <input
-            type='checkbox'
-            checked={hiddenColumnsIds.some((id) => id === field.id)}
-            onChange={() => onCheckboxClick(field)}
-          />
-          {field.label}
-        </div>
+      {entryFields.map((field) => (
+        <FormControlLabel
+          key={field.id}
+          control={(
+            <Checkbox
+              checked={!hiddenColumnsIds.includes(field.id)}
+              onChange={() => onCheckboxClick(field)}
+            />
+                  )}
+          label={field.label}
+        />
       ))}
     </div>
+
   );
 }
 
