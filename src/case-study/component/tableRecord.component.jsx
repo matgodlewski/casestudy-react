@@ -31,7 +31,7 @@ function TableRecordComponent({
         key='NO'
         hidden={hiddenColumnsIds.some((id) => id === 0)}
       >
-        {index + 1}
+        <strong>{index + 1}</strong>
       </td>
       <td
         key='API_NAME'
@@ -55,7 +55,8 @@ function TableRecordComponent({
         key='CORS'
         hidden={hiddenColumnsIds.some((id) => id === 3)}
       >
-        {entry.Cors}
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {entry.Cors === 'unknown' ? '❓' : entry.Cors === 'yes' ? '✅' : '❌'}
       </td>
       <td
         key='DESCRIPTION'
@@ -74,7 +75,7 @@ function TableRecordComponent({
         key='CATEGORY'
         hidden={hiddenColumnsIds.some((id) => id === 5)}
       >
-        {entry.Category}
+        <strong>{entry.Category}</strong>
       </td>
       <td
         key='ACTION'

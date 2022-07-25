@@ -11,7 +11,6 @@ function ApisContainer({
   const handleOnClick = () => {
     dispatch(asyncFetchAllApisAction());
   };
-
   return (
     <div>
       <ApisComponent

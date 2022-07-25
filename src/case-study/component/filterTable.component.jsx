@@ -20,6 +20,28 @@ export default function FilterColumnsComponent({
 
   return (
     <div>
+      {/* input list html */}
+      <input
+        list='Category'
+        placeholder='Category'
+        style={{
+          width: '30%',
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '3px',
+          marginBottom: '10px',
+          fontSize: '16px',
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+        }}
+      />
+      <datalist id='Category'>
+        <option value='Development' />
+        <option value='Production' />
+        <option value='Testing' />
+        <option value='Archive' />
+      </datalist>
+      <br />
       {entryFields.map((field) => (
         <FormControlLabel
           key={field.id}

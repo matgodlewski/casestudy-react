@@ -46,7 +46,12 @@ export default function TableHeaderComponent({
 }) {
   return (
     <TableHead>
-      <TableRow>
+      <TableRow
+        style={{
+          hover: 'none',
+          backgroundColor: '#f5f5f5',
+        }}
+      >
         {entryFields.map((field) => (
           <th
             key={field.id}
