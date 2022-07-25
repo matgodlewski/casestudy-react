@@ -16,8 +16,7 @@ export default function TableComponent({
   };
 
   const onEntryDelete = (API) => {
-    const filteredData = data.filter((item) => item.API !== API);
-    dispatch(updateApiDetailsEntries(filteredData));
+    dispatch(updateApiDetailsEntries(data.filter((item) => item.API !== API)));
   };
 
   return (

@@ -81,7 +81,7 @@ function TableRecordComponent({
         </button>
         <button
           type='button'
-          onClick={() => removeApiEntry(entry)}
+          onClick={() => removeApiEntry(entry.API)}
         >
           Remove
         </button>

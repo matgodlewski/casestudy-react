@@ -6,11 +6,13 @@ export default function FilterColumnsComponent({
   hiddenColumnsIds,
   onColumnsChange,
 }) {
-  const onCheckboxClick = (field) => (
-    (hiddenColumnsIds.some((id) => id === field.id)
-      ? onColumnsChange(hiddenColumnsIds.filter((id) => id !== field.id))
-      : onColumnsChange([...hiddenColumnsIds, field.id]))
-  );
+  const onCheckboxClick = (field) => {
+    console.log(hiddenColumnsIds);
+    const newHiddenColumnsIds = hiddenColumnsIds.includes(field.id)
+      ? hiddenColumnsIds.filter((id) => id !== field.id)
+      : [...hiddenColumnsIds, field.id];
+    onColumnsChange(newHiddenColumnsIds);
+  };
 
   return (
     <div>

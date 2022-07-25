@@ -13,7 +13,6 @@ function ApisComponent({
   dispatch = [],
 }) {
   const { allApisInDevsCategory } = apisDetails;
-  // save the hidden columns in local storage
   const [hiddenColumnsIds, setHiddenColumnsIds] = useLocalStorage(
     'hiddenColumnsIds',
     [],
